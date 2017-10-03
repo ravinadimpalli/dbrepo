@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ng-include Example</title>
+	<script src="src/angular-1.5.8.js"></script>
+	<style>
+	.mainDiv { margin: 40px 40px; }
+	.mainDiv table {
+		margin-top: 10px;
+		border-collapse: collapse;
+	}
+
+	.mainDiv table td {
+		padding: 5px;
+		border: 1px solid #d3d3d3;
+		width: 100px;
+	}
+	.mainDiv > table > thead > tr > td:last-child { width: 100px; }
+
+</style>
+</head>
+<body data-ng-app="ngIncludeModule">
+	<div class="mainDiv" ng-controller="ngIncludeCtrl">
+
+		<select name="" id="" ng-model="selectView">
+			<option value="table">Table View</option>
+			<option value="list">List View</option>
+			<!--<option value="./src/tableView.html">Table View</option>
+			<option value="./src/listView.html">List View</option> -->
+		</select>	
+
+		<div ng-include="includeView()"></div>	
+	</div>
+	<script>
+		var app = angular.module("ngIncludeModule", []);
+		app.controller("ngIncludeCtrl", function($scope){
+			$scope.employees = [
+				{name:"ravi", gender:"Male", salary:155000, city:"Hyderabad", dob:new Date("November 13, 1990")},
+				{name:"revathi", gender:"Female", salary:60000, city:"Hyderabad", dob:new Date("July 01, 1992")},
+				{name:"Ben", gender:"Male", salary:25000, city:"London", dob:new Date("June 1, 1980")},
+				{name:"todd", gender:"Male", salary:35000, city:"Newyork", dob:new Date("June 16, 1997")},
+				{name:"Sara", gender:"Female", salary:50000, city:"London", dob:new Date("November 10, 1995")}	
+			];
+
+			$scope.selectView = "table";
+			$scope.includeView= function(){
+				return $scope.selectView == "list" ? "./src/listView.html" : "./src/tableView.html"; 
+			}
+		});
+	</script>	
+</body>
+</html>

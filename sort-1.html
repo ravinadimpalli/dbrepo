@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sort 1</title>
+	<script src="src/angular-1.5.8.js"></script>
+	<style>
+		table { border-collapse: collapse; }
+		table td {
+			border: 1px solid black;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body ng-app="sortApp">
+	
+	<div ng-controller="sortCtrl" >
+		Sort By: 
+		<select ng-model="sortCol">
+			<option value="+name">Name Asc</option>
+			<option value="-name">Name DSC</option>
+			<option value="+dob">Date Of Birth ASC</option>
+			<option value="-dob">Date Of Birth DSC</option>
+			<option value="+gender">Gender ASC</option>
+			<option value="-gender">Gender DSC</option>
+			<option value="+salary">Salary ASC</option>
+			<option value="-salary">Salary DSC</option>
+		</select><br><br>
+
+		Sort By: 
+		<select ng-model="sortCol">
+			<option value="name">Name</option>
+			<option value="dob">Date Of Birth</option>
+			<option value="gender">Gender</option>
+			<option value="salary">Salary</option>
+		</select> Reverse Sort: <input type="checkbox" ng-model="reverseSort"> <br><br>
+		<table>
+			<tr>
+				<td>Name</td>
+				<td>Date of birth</td>
+				<td>Gender</td>
+				<td>Salary</td>
+			</tr>
+			<tr data-ng-repeat="emp in employees|orderBy:sortCol:reverseSort">
+				<td>{{emp.name}}</td>
+				<td>{{emp.dob}}</td>
+				<td>{{emp.gender}}</td>
+				<td>{{emp.salary}}</td>
+			</tr>
+		</table>
+	</div>
+	<script>
+		var myapp = angular.module("sortApp", []);
+		myapp.controller("sortCtrl", function($scope){
+			$scope.employees = [
+				{name:'ravi', dob:'01-11-86', gender: 'male', salary:'50000'},
+				{name:'rajesh', dob:'01-11-85', gender: 'male', salary:'60000'},
+				{name:'narendra', dob:'01-11-88', gender: 'male', salary:'65000'},
+				{name:'kumar', dob:'01-11-90', gender: 'male', salary:'45000'}
+			]
+		});
+	</script>
+</body>
+</html>

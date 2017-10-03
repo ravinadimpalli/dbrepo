@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sort 1</title>
+	<script src="src/angular-1.5.8.js"></script>
+	<style>
+		table { border-collapse: collapse; }
+		table td {
+			border: 1px solid black;
+			padding: 5px;
+		}
+		thead td { cursor: pointer; }
+		.arrow-up {
+			width: 0;
+			height: 0;
+			border-left: 5px solid transparent;
+			border-right: 5px solid transparent;
+			border-bottom: 10px solid black;
+			display: inline-block;
+		}
+		.arrow-down {
+			width: 0;
+			height: 0;
+			border-left: 5px solid transparent;
+			border-right: 5px solid transparent;
+			border-top: 10px solid black;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body ng-app="sortApp">
+	<div ng-controller="sortCtrl" >
+		<table>
+			<thead>
+				<tr>
+					<td ng-click="sortData('name')">
+						<div ng-class="getSortClass('name')"></div> Name
+					</td>
+					<td ng-click="sortData('dob')">
+						<div ng-class="getSortClass('dob')"></div> Date of birth
+					</td>
+					<td ng-click="sortData('gender')">
+						<div ng-class="getSortClass('gender')"></div> Gender
+					</td>
+					<td ng-click="sortData('salary')">
+						<div ng-class="getSortClass('salary')"></div> Salary
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="emp in employees|orderBy:sortColumn:reverseSort">
+					<td>{{emp.name}}</td>
+					<td>{{emp.dob}}</td>
+					<td>{{emp.gender}}</td>
+					<td>{{emp.salary}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		var myapp = angular.module("sortApp", []);
+		myapp.controller("sortCtrl", function($scope){
+			$scope.employees = [
+				{name:'Ravi', dob:'01-11-86', gender: 'Male', salary:'50000'},
+				{name:'Rajesh', dob:'01-11-85', gender: 'Male', salary:'60000'},
+				{name:'Narendra', dob:'01-11-88', gender: 'Male', salary:'65000'},
+				{name:'Lavanya', dob:'01-11-90', gender: 'Female', salary:'45000'}
+			];
+			$scope.reverseSort = false;
+			$scope.sortColumn = "name";
+			$scope.sortData = function(column){
+				$scope.reverseSort = column == $scope.sortColumn ? !$scope.reverseSort : false;
+				$scope.sortColumn = column;
+			}
+			$scope.getSortClass = function(column){
+				if( column == $scope.sortColumn )
+					return $scope.reverseSort == true ? "arrow-down" : "arrow-up";
+				else
+					return "";
+			}
+		});
+	</script>
+</body>
+</html>

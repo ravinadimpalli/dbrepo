@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Filters first Example</title>
+	<script src="src/angular-1.5.8.js"></script>
+	<style>
+		.mainDiv { margin: 40px 40px; }
+		.mainDiv table {
+			margin-top: 10px;
+			border-collapse: collapse;
+		}
+
+		.mainDiv table td {
+			padding: 5px;
+			border: 1px solid #d3d3d3;
+			width: 100px;
+		}
+		.mainDiv input { width: 200px; }
+		.mainDiv > table > thead > tr > td:last-child { width: 100px; }
+
+		/*
+		Date filter:
+		d    -> no leading zeros
+		dd   -> with leading zeros
+		M    -> month as number but not with leading zero
+		MM   -> month as number but with leading zero
+		MMM  -> month as text with abbreviated. for ex, Jan = January
+		MMMM -> month as text with full. for ex, January
+
+		limitTo -> used to limit the number of rows being shown. 
+			limitTo:number:startIndex;
+			number=how many rows you want to display
+			startIndex=from which index you want display. if you provide 2 then it hides 0 and 1 indexed rows.
+			limitTo:3->show 3 rows from 0 index
+			limitTo:3:2-> show 3 rows from 2nd index(hides first 2 rows) 
+		*/
+	</style>
+</head>
+<body data-ng-app="FilModule">
+	<div class="mainDiv" ng-controller="FilCtrl">
+		rows to display: <input type="number" step=1 ng-model="limt" min=0 max=5 />
+		<table>
+			<thead>			
+				<tr>
+					<td>Name</td>
+					<td>Gender</td>
+					<td>Salary</td>
+					<td>City</td>
+					<td>Date of birth</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="employee in employees|limitTo:limt">
+					<td>{{employee.name}}</td>
+					<td>{{employee.gender}}</td>
+					<td>{{employee.salary | currency:"Rs. "}}</td>
+					<td>{{employee.city}}</td>
+					<td>{{employee.dob | date:"dd M yyyy"}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		var app = angular.module("FilModule", []);
+			app.controller("FilCtrl", function($scope){
+				$scope.employees = [
+					{name:"ravi", gender:"Male", salary:155000, city:"Hyderabad", dob:new Date("November 13, 1990")},
+					{name:"revathi", gender:"Female", salary:60000, city:"Hyderabad", dob:new Date("July 01, 1992")},
+					{name:"Ben", gender:"Male", salary:25000, city:"London", dob:new Date("June 1, 1980")},
+					{name:"todd", gender:"Male", salary:35000, city:"Newyork", dob:new Date("June 16, 1997")},
+					{name:"Sara", gender:"Female", salary:50000, city:"London", dob:new Date("November 10, 1995")}	
+				];
+				$scope.limt = 3;
+			});
+	</script>	
+</body>
+</html>

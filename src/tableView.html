@@ -1,0 +1,20 @@
+<table>
+	<thead>			
+		<tr>
+			<td>Name</td>
+			<td>Gender</td>
+			<td>Salary</td>
+			<td>City</td>
+			<td>Date of birth</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="employee in employees">
+			<td>{{employee.name}}</td>
+			<td>{{employee.gender}}</td>
+			<td>{{employee.salary | currency:"Rs. "}}</td>
+			<td>{{employee.city}}</td>
+			<td>{{employee.dob | date:"dd/MMM/yyyy"}}</td>
+		</tr>
+	</tbody>
+</table>

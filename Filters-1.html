@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Filters first Example</title>
+	<script src="src/angular-1.5.8.js"></script>
+	<style>
+		.mainDiv { margin: 40px 40px; }
+		.mainDiv table {
+			margin-top: 10px;
+			border-collapse: collapse;
+		}
+
+		.mainDiv table td {
+			padding: 5px;
+			border: 1px solid #d3d3d3;
+		}
+		.mainDiv input { width: 200px; }
+	</style>
+</head>
+<body data-ng-app="FilModule">
+
+	<div class="mainDiv" ng-controller="FilCtrl">
+		<input type="text" ng-model="searchText" placeholder="Search all fields" />
+		<span ng-show=""></span>
+		<table>
+			<thead>			
+				<tr>
+					<td>Name</td>
+					<td>Gender</td>
+					<td>Salary</td>
+					<td>City</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="employee in employees | filter:searchText">
+					<td>{{employee.name}}</td>
+					<td>{{employee.gender}}</td>
+					<td>{{employee.salary}}</td>
+					<td>{{employee.city}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<br/><br/>
+		<input type="text" ng-model="searchText1.name" placeholder="Search by name" />
+		<table>
+			<thead>			
+				<tr>
+					<td>Name</td>
+					<td>Gender</td>
+					<td>Salary</td>
+					<td>City</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="employee in employees | filter:searchText1">
+					<td>{{employee.name}}</td>
+					<td>{{employee.gender}}</td>
+					<td>{{employee.salary}}</td>
+					<td>{{employee.city}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		var app = angular.module("FilModule", []);
+			app.controller("FilCtrl", function($scope){
+				$scope.employees = [
+					{name:"ravi", gender:"Male", salary:55000, city:"Hyderabad"},
+					{name:"revathi", gender:"Female", salary:60000, city:"Hyderabad"},
+					{name:"Ben", gender:"Male", salary:25000, city:"London"},
+					{name:"todd", gender:"Male", salary:35000, city:"Newyork"},
+					{name:"Sara", gender:"Female", salary:50000, city:"London"}	
+				]
+			});
+	</script>	
+</body>
+</html>

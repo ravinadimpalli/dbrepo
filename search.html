@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Search</title>
+	<script src="src/angular-1.5.8.js"></script>
+	<style>
+		table { border-collapse: collapse; }
+		table td {
+			border: 1px solid black;
+			padding: 5px;
+		}
+		
+	</style>
+</head>
+<body ng-app="SearchApp">
+	<div ng-controller="searchCtrl" >
+		<input type="text" ng-model="searchTxt.name" placeholder="Search name"> <input type="checkbox" ng-model="exactMatch" /> Exact Match<br><br>
+		<table>
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>Date of birth</td>
+					<td>Gender</td>
+					<td>Salary</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="emp in employees | filter:searchTxt">
+					<td>{{emp.name}}</td>
+					<td>{{emp.dob}}</td>
+					<td>{{emp.gender}}</td>
+					<td>{{emp.salary}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		var myapp = angular.module("SearchApp", []);
+		myapp.controller("searchCtrl", function($scope){
+			$scope.employees = [
+				{name:'Ravi', dob:'01-11-86', gender: 'Male', salary:'50000'},
+				{name:'Rajesh', dob:'01-11-85', gender: 'Male', salary:'60000'},
+				{name:'Narendra', dob:'01-11-88', gender: 'Male', salary:'65000'},
+				{name:'Lavanya', dob:'01-11-90', gender: 'Female', salary:'45000'}
+			];
+		});
+	</script>
+</body>
+</html>

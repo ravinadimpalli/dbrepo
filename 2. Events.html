@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="events-app">
+<head>
+	<meta charset="UTF-8">
+	<title>Sort 1</title>
+	<script src="src/angular-1.5.8.js"></script>
+	<style>
+		table { border-collapse: collapse; }
+		table td {
+			border: 1px solid black;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body ng-controller="ngEventsCtrl">
+	<table>
+		<tr>
+			<td>Course</td>
+			<td>Likes</td>
+			<td>Dislikes</td>
+			<td>Like/Dislike</td>
+		</tr>
+		<tr ng-repeat="course in courses">
+			<td>{{course.name}}</td>
+			<td>{{course.likes}}</td>
+			<td>{{course.dislikes}}</td>
+			<td>
+				<button ng-click="countLikes(course)">Like</button>
+				<button ng-click="countDislikes(course)">Dislike</button>
+			</td>
+		</tr>
+	</table>
+
+	<script>
+		var myapp = angular.module("events-app", []);
+		myapp.controller("ngEventsCtrl", function($scope){
+			$scope.courses = [
+				{name:"C#", likes:0, dislikes:0},
+				{name:"Java", likes:0, dislikes:0},
+				{name:"JavaScript", likes:0, dislikes:0},
+				{name:"CSS", likes:0, dislikes:0}
+			];
+
+			$scope.countLikes = function(crs){
+				crs.likes++;
+			}
+			$scope.countDislikes = function(crs){
+				crs.dislikes++;
+			}
+		})
+	</script>
+</body>
+</html>

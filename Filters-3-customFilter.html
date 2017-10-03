@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Filters first Example</title>
+	<script src="src/angular-1.5.8.js"></script>
+	<style>
+		.mainDiv { margin: 40px 40px; }
+		.mainDiv table {
+			margin-top: 10px;
+			border-collapse: collapse;
+		}
+
+		.mainDiv table td {
+			padding: 5px;
+			border: 1px solid #d3d3d3;
+			width: 100px;
+		}
+		.mainDiv input { width: 200px; }
+		.mainDiv > table > thead > tr > td:last-child { width: 100px; }
+
+	</style>
+</head>
+<body data-ng-app="FilModule">
+	<div class="mainDiv" ng-controller="FilCtrl">
+		<table>
+			<thead>			
+				<tr>
+					<td>Name</td>
+					<td>Gender</td>
+					<td>Salary</td>
+					<td>City</td>
+					<td>Date of birth</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="employee in employees">
+					<td>{{employee.name}}</td>
+					<td>{{employee.gender | gender}}</td>
+					<td>{{employee.salary | currency:"Rs. "}}</td>
+					<td>{{employee.city}}</td>
+					<td>{{employee.dob | date:"dd M yyyy"}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		var app = angular.module("FilModule", []);
+			app.controller("FilCtrl", function($scope){
+				$scope.employees = [
+					{name:"ravi", gender:1, salary:155000, city:"Hyderabad", dob:new Date("November 13, 1990")},
+					{name:"revathi", gender:2, salary:60000, city:"Hyderabad", dob:new Date("July 01, 1992")},
+					{name:"Ben", gender:1, salary:25000, city:"London", dob:new Date("June 1, 1980")},
+					{name:"todd", gender:1, salary:35000, city:"Newyork", dob:new Date("June 16, 1997")},
+					{name:"Sara", gender:2, salary:50000, city:"London", dob:new Date("November 10, 1995")}	
+				];
+			});
+			app.filter("gender", function(){
+				return function(item){
+					switch(item){
+						case 1: return "Male";
+						case 2: return "Female";
+					}
+				}
+			});
+	</script>	
+</body>
+</html>

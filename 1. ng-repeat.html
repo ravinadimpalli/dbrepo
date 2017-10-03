@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="repeat-app">
+<head>
+	<meta charset="UTF-8">
+	<title>Sort 1</title>
+	<script src="src/angular-1.5.8.js"></script>
+	<style>
+		table { border-collapse: collapse; }
+		table td {
+			border: 1px solid black;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body ng-controller="ngrepeatCtrl">
+	<ul>
+		<li style="list-style:none;" ng-repeat="country in countryObj">
+			{{$index+1}}. {{country.name}}
+			<ul>
+				<li style="list-style:none;" ng-repeat="city in country.cities"> {{$parent.$index+1}}.{{$index+1}}. {{city}}</li>
+			</ul>
+		</li>
+	</ul>
+
+	<script>
+		var myapp = angular.module("repeat-app", []);
+		myapp.controller("ngrepeatCtrl", function($scope){
+			$scope.countryObj = [
+				{name: "India",cities: ["Hyderabad", "Delhi", "Mumbai", "Bengalure", "Vishakapatnam"]},
+				{name: "US",cities: ["Newyork", "Washington DC", "California", "San Jose", "Chicago"]},
+			]
+		})
+	</script>
+</body>
+</html>

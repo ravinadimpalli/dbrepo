@@ -1,0 +1,11 @@
+<ul>
+	<li ng-repeat="emp in employees">
+		{{emp.name}}
+		<ul>
+			<li>{{emp.gender}}</li>
+			<li>{{emp.salary}}</li>
+			<li>{{emp.city}}</li>
+			<li>{{emp.dob | date:"dd/MMM/yyyy"}}</li>
+		</ul>
+	</li>
+</ul>
